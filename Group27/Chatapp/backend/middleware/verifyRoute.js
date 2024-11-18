@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import User from "../models/auth.models";
+import User from "../models/auth.models.js";
 
 const verifyRoute = async (req, res, next) => {
   try {

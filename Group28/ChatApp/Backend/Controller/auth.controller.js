@@ -77,3 +77,4 @@ export const logout = (req, res) => {
   });
   res.status(200).send({ message: "Logout Successfully" });
 };
+
