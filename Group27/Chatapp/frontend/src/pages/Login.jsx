@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 
 function Login() {
-  const { loginInfo, setLoginInfo } = useContext(AuthContext);
+  const { loginInfo, setLoginInfo, submitLogin } = useContext(AuthContext);
   const handleLogin = (e) => {
     console.log(e.target);
     const { name, value } = e.target;
@@ -14,7 +14,7 @@ function Login() {
   };
   return (
     <Container>
-      <Form>
+      <Form onSubmit={submitLogin}>
         <Form.Group className="mb-3" controlId="formBasicText">
           <Form.Label>Enter Username</Form.Label>
           <Form.Control

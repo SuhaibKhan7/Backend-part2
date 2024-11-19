@@ -14,21 +14,26 @@ export const AuthContextProvider = ({ children }) => {
   });
   const navigate = useNavigate();
 
-  const submitLogin = useEffect(() => {
+  const submitLogin = async (e) => {
+    e.preventDefault();
+    console.log(login);
     try {
-      const response = postRequest("/login", login);
+      const response = await postRequest("auth/login", login);
+      console.log(response.error);
       if (response.error) {
         setLoginError(response.error); //set error
       } else {
         setUser(response);
         localStorage.setItem("user", JSON.stringify(response));
-        navigate("/chat");
+        navigate("/");
       }
     } catch (error) {}
-  }, []);
+  };
 
   return (
-    <AuthContext.Provider value={{user, login, setLogin, submitLogin, loginError }}>
+    <AuthContext.Provider
+      value={{ user, login, setLogin, submitLogin, loginError }}
+    >
       {children}
     </AuthContext.Provider>
   );

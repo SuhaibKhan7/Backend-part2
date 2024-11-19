@@ -2,12 +2,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import { useContext, useState } from "react";
-import { postRequest } from "../services/service";
+import { AuthContext } from "../Context/AuthContext";
+
 function Login() {
-  const [login, setLogin] = useState({
-    username: "",
-    password: "",
-  });
+  const { login, setLogin, submitLogin, loginError } = useContext(AuthContext);
+
   const handleLogin = (e) => {
     console.log(e.target);
     const { name, value } = e.target;
@@ -17,7 +16,7 @@ function Login() {
 
   return (
     <Container>
-      <Form onSubmit={postRequest("auth/login", login)}>
+      <Form onSubmit={submitLogin}>
         <Form.Group className="mb-3" controlId="formBasicText">
           <Form.Label>Username</Form.Label>
 

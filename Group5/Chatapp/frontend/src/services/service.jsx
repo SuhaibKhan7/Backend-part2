@@ -1,5 +1,7 @@
-const baseUrl = "http://localhost:4000/api/v1";
+const baseUrl = "http://localhost:3003/api/v1";
 export const postRequest = async (url, body) => {
+  console.log(url);
+  console.log(body);
   try {
     const response = await fetch(`${baseUrl}/${url}`, {
       method: "POST",
@@ -10,21 +12,17 @@ export const postRequest = async (url, body) => {
       credentials: "include",
     });
     const data = await response.json();
-
+    console.log(data);
     if (!response.ok) {
       let message;
       if (data?.message) {
-        message = data.mesage;
+        message = data.message;
       } else {
         message = data;
       }
       return { error: true, message };
     }
     return data;
-
-
-
-    
   } catch (error) {
     console.error(error);
   }
