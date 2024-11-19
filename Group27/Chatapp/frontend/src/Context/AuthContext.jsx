@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { postRequest } from "../pages/services/service";
 
 export const AuthContext = createContext();
+
 export const AuthContextProvider = ({ children }) => {
   const [loginError, setLoginError] = useState(null);
   const [user, setUser] = useState({});
@@ -12,25 +14,50 @@ export const AuthContextProvider = ({ children }) => {
   });
   const navigate = useNavigate();
 
-  const submitLogin = useEffect(async () => {
-    try {
-      const response = await postRequest(
-        "auth/login",
-        JSON.stringify(loginInfo)
-      );
-      if (response.error) {
-        setLoginError(response);
-      } else {
-        localStorage.setItem("user", JSON.stringify(response));
-        setUser(response);
-        navigate("/");
-      }
-    } catch (error) {}
-  }, [loginInfo]);
+  const submitLogin = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        const response = await postRequest(
+          "auth/login",
+          JSON.stringify(loginInfo)
+        );
+        console.log(">>>>>>>>>>>>>>>>");
+        console.log(response);
+        if (response.error) {
+          setLoginError(response);
+        } else {
+          localStorage.setItem("user", JSON.stringify(response));
+          setUser(response);
+          navigate("/");
+        }
+      } catch (error) {}
+    },
+    [loginInfo]
+  );
+
+  const [logoutError, setLogoutError] = useState(null);
+  const handleLogout = async () => {
+    const response = await postRequest("auth/logout");
+    if (response.error) {
+      setLogoutError(response);
+    } else {
+      localStorage.removeItem("user");
+      setUser({});
+      navigate("/login");
+    }
+  };
 
   return (
     <AuthContext.Provider
-      value={{ loginInfo, setLoginInfo, loginError, user, submitLogin }}
+      value={{
+        loginInfo,
+        setLoginInfo,
+        loginError,
+        user,
+        submitLogin,
+        handleLogout,
+      }}
     >
       {children}
     </AuthContext.Provider>
