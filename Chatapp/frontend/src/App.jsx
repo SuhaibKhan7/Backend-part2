@@ -1,10 +1,15 @@
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
 import "./App.css";
+
 import "bootstrap/dist/css/bootstrap.min.css";
-import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import NavigationBar from "./components/NavigationBar";
-import { Route, Routes, Navigate } from "react-router-dom";
 import Chat from "./pages/Chat";
+import Login from "./pages/Login";
+import { Route, Routes } from "react-router-dom";
+import NavigationBar from "./components/NavigationBar";
+
 function App() {
   return (
     <>

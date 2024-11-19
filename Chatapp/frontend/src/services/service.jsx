@@ -10,22 +10,9 @@ export const postRequest = async (url, body) => {
       credentials: "include",
     });
     const data = await response.json();
-
     if (!response.ok) {
       let message;
-      if (data?.message) {
-        message = data.mesage;
-      } else {
-        message = data;
-      }
-      return { error: true, message };
+      message = data.mesage;
     }
-    return data;
-
-
-
-    
-  } catch (error) {
-    console.error(error);
-  }
+  } catch (error) {}
 };
