@@ -2,13 +2,11 @@ import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
-
-
-
 export const AuthContextProvide = ({ children }) => {
 
   const navigate = useNavigate();
   const [user, setUser] = useState({});
+  
   const [loginError, setLoginError] = useState(null);
   const [login, setLogin] = useState({
     username: "",
@@ -22,7 +20,6 @@ export const AuthContextProvide = ({ children }) => {
     } else {
       localStorage.setItem("user", JSON.stringify(response));
       setUser(response);
-      //redirect chat
       navigate("/");
     }
   };

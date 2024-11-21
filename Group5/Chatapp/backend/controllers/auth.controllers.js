@@ -57,7 +57,7 @@ export const login = async (req, res) => {
   //jwt function call
 
   generateJWT(user._id, res);
-  
+
   res.status(201).json({
     _id: user._id,
     fullname: user.fullname,
@@ -71,5 +71,5 @@ export const logout = (req, res) => {
   res.cookie("jwt", " ", {
     maxAge: 0,
   });
-  res.status(200).status("logout Sucessfull");
+  res.status(200).send({ message: "logout Sucessfull" });
 };

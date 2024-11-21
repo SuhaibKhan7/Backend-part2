@@ -1,5 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 import Container from "react-bootstrap/Container";
 import { useContext, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
@@ -19,7 +20,6 @@ function Login() {
       <Form onSubmit={submitLogin}>
         <Form.Group className="mb-3" controlId="formBasicText">
           <Form.Label>Username</Form.Label>
-
           <Form.Control
             type="text"
             placeholder="Enter username"
@@ -27,7 +27,6 @@ function Login() {
             name="username"
             value={login.username}
           />
-
           <Form.Text className="text-muted">Enter your username Here</Form.Text>
         </Form.Group>
 
@@ -37,6 +36,8 @@ function Login() {
             type="password"
             placeholder="Password"
             onChange={handleLogin}
+            value={login.password}
+            name="password"
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
@@ -46,6 +47,13 @@ function Login() {
           Login
         </Button>
       </Form>
+
+      {loginError && (
+        <Alert key="alertError" variant="danger">
+          {" "}
+          {loginError}
+        </Alert>
+      )}
     </Container>
   );
 }
