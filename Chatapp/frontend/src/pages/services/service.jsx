@@ -19,7 +19,7 @@ export const postRequest = async (url, body = null) => {
     } else {
       message = data;
     }
-    return ({ error: true, message });
+    return { error: true, message };
   }
   return data;
 };

@@ -9,8 +9,10 @@ import messageRouter from "./routes/routes.message.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
-
 const app = express();
+
+app.use(express.json());
+app.use(cookieparser());
 
 const allowedOrigins = "http://localhost:5173";
 
@@ -21,9 +23,6 @@ app.use(
     credentials: true, // Allow cookies and other credentials
   })
 );
-
-app.use(express.json());
-app.use(cookieparser());
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/message", messageRouter);

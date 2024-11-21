@@ -1,34 +1,32 @@
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 
 function Login() {
-  const { login, setLogin, submitLogin, loginError } = useContext(AuthContext);
-
+  const { loginInfo, setLoginInfo, submitLogin } = useContext(AuthContext);
   const handleLogin = (e) => {
     console.log(e.target);
     const { name, value } = e.target;
-    setLogin({ ...login, [name]: value });
-    console.log(login);
+    setLoginInfo({ ...loginInfo, [name]: value });
   };
-
   return (
     <Container>
       <Form onSubmit={submitLogin}>
         <Form.Group className="mb-3" controlId="formBasicText">
-          <Form.Label>Username</Form.Label>
-
+          <Form.Label>Enter Username</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter username"
+            placeholder="Enter Username"
             onChange={handleLogin}
             name="username"
-            value={login.username}
+            value={loginInfo.username}
           />
-
-          <Form.Text className="text-muted">Enter your username Here</Form.Text>
+          <Form.Text className="text-muted">
+            Enter your unique Username
+          </Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -37,6 +35,8 @@ function Login() {
             type="password"
             placeholder="Password"
             onChange={handleLogin}
+            value={loginInfo.password}
+            name="password"
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">

@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { postRequest } from "../pages/services/service";
-
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
@@ -12,8 +11,8 @@ export const AuthContextProvider = ({ children }) => {
     username: "",
     password: "",
   });
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const submitLogin = useCallback(
     async (e) => {
       e.preventDefault();
@@ -25,7 +24,8 @@ export const AuthContextProvider = ({ children }) => {
         console.log(">>>>>>>>>>>>>>>>");
         console.log(response);
         if (response.error) {
-          setLoginError(response);
+          setLoginError(response.message);
+
         } else {
           localStorage.setItem("user", JSON.stringify(response));
           setUser(response);

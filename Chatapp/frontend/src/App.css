@@ -1,4 +1,4 @@
-body{
-  background-image: linear-gradient( #a18cd1 0%, #fbc2eb 100%);
+body {
+  background: linear-gradient(rgb(234, 177, 177) 0%, rgb(215, 158, 230) 100%);
   background-repeat: no-repeat;
 }
