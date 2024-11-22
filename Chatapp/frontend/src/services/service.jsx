@@ -1,14 +1,19 @@
 const baseUrl = "http://localhost:3003/api/v1";
 const postRequest = async (url, body) => {
+  console.log("This is post req fun");
   const response = await fetch(`${baseUrl}/${url}`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "Application/json",
     },
     body: body,
     credentials: "include",
   });
   const data = await response.json();
+  console.log(response);
+  console.log("****");
+  console.log(data);
+
   if (!response.ok) {
     let message;
     if (data?.message) {
@@ -16,9 +21,8 @@ const postRequest = async (url, body) => {
     } else {
       message = "Something went wrong";
     }
-    return { error: true, message}
-    //content of message
+    return { error: true, message };
   }
   return data;
-  //user details
 };
+export default postRequest 

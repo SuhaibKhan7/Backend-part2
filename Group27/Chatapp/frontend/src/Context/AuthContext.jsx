@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [loginError, setLoginError] = useState(null);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [loginInfo, setLoginInfo] = useState({
     username: "",
     password: "",
@@ -42,10 +42,10 @@ export const AuthContextProvider = ({ children }) => {
     const response = await postRequest("auth/logout");
     console.log("logout");
     console.log(response);
-      localStorage.removeItem("user");
-      setUser({});
-      navigate("/login");
-    }
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/login");
+  };
   return (
     <AuthContext.Provider
       value={{

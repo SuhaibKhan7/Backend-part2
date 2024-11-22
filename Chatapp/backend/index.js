@@ -1,21 +1,18 @@
 import express from "express";
 import dotenv from "dotenv";
-import cookieparser from "cookie-parser";
+
 import cors from "cors";
 
-import connection from "./db/mongodb.conn.js";
-import authRouter from "./routes/routes.auth.js";
-import messageRouter from "./routes/routes.message.js";
+import authRouter from "./router/auth.routes.js";
+import messageRouter from "./router/message.routes.js";
+import connection from "./db/mongdb.conn.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 const PORT = process.env.PORT;
 const app = express();
 
-app.use(express.json());
-app.use(cookieparser());
-
-const allowedOrigins = "http://localhost:5173";
-
+const allowedOrigins="http://localhost:5173"
 app.use(
   cors({
     origin: allowedOrigins,
@@ -24,10 +21,14 @@ app.use(
   })
 );
 
+
+app.use(express.json());
+app.use(cookieParser());
+
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/message", messageRouter);
 
 app.listen(PORT, () => {
   connection();
-  console.log("server is running at:", PORT);
+  console.log("Server is running at :", PORT);
 });

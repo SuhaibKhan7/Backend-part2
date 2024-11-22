@@ -6,7 +6,7 @@ import cors from "cors";
 import connection from "./db/mongodb.conn.js";
 import authRouter from "./routes/routes.auth.js";
 import messageRouter from "./routes/routes.message.js";
-import userRouter from "./routes/routes.user.js";
+import userRouter from "./routes/routes.users.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -27,7 +27,7 @@ app.use(
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/message", messageRouter);
-app.use("api/v1/user", userRouter);
+app.use("/api/v1/user", userRouter);
 
 app.listen(PORT, () => {
   connection();

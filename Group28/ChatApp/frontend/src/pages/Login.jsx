@@ -7,10 +7,11 @@ import { AuthContext } from "../Context/AuthContext";
 function Login() {
   const { login, setLogin, handleSubmit } = useContext(AuthContext);
   const handleLogin = (e) => {
-    console.log(e.target);
+    e.preventDefault();
     const { name, value } = e.target;
     setLogin({ ...login, [name]: value });
   };
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicUsername">

@@ -1,63 +1,35 @@
-import { useCallback, useEffect, useState } from "react";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { postRequest } from "../pages/services/service";
-
+import postRequest from "../services/service.jsx";
 export const AuthContext = createContext();
 
-export const AuthContextProvider = ({ children }) => {
-  const [loginError, setLoginError] = useState(null);
+export const AuthContextProvide = ({ children }) => {
   const [user, setUser] = useState({});
-  const [loginInfo, setLoginInfo] = useState({
+  const [loginError, setLoginError] = useState(null);
+  const navigate = useNavigate();
+  const [login, setLogin] = useState({
     username: "",
     password: "",
   });
-  const navigate = useNavigate();
 
-  const submitLogin = useCallback(
-    async (e) => {
-      e.preventDefault();
-      try {
-        const response = await postRequest(
-          "auth/login",
-          JSON.stringify(loginInfo)
-        );
-        console.log(">>>>>>>>>>>>>>>>");
-        console.log(response);
-        if (response.error) {
-          setLoginError(response);
-        } else {
-          localStorage.setItem("user", JSON.stringify(response));
-          setUser(response);
-          navigate("/");
-        }
-      } catch (error) {}
-    },
-    [loginInfo]
-  );
-
-  const [logoutError, setLogoutError] = useState(null);
-  const handleLogout = async () => {
-    const response = await postRequest("auth/logout");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("inside submit fn");
+    const response = await postRequest("auth/login", JSON.stringify(login));
     if (response.error) {
-      setLogoutError(response);
+      // set error
+      setLoginError(response.message);
     } else {
-      localStorage.removeItem("user");
-      setUser({});
-      navigate("/login");
+      localStorage.setItem("user", JSON.stringify(response));
+      setUser(response);
+      // redirect chat
+      navigate("/");
     }
   };
 
   return (
     <AuthContext.Provider
-      value={{
-        loginInfo,
-        setLoginInfo,
-        loginError,
-        user,
-        submitLogin,
-        handleLogout,
-      }}
+      value={{ login, setLogin, handleSubmit, loginError, user }}
     >
       {children}
     </AuthContext.Provider>

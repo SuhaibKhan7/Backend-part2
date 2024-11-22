@@ -7,7 +7,7 @@ export const ChatContextProvider = ({ children }) => {
 
   const getUserList = useEffect(() => {
     const fetchlist = () => {
-      const resposne = getRequest("users");
+      // const resposne = getRequest("users");
 
 
     };
