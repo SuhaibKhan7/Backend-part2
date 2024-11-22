@@ -11,7 +11,7 @@ export const postRequest = async (url, body = null) => {
   });
   const data = await response.json();
   console.log("data:");
-  console.log(data);
+  console.log(response);
   if (!response.ok) {
     let message;
     if (data?.message) {
@@ -19,7 +19,7 @@ export const postRequest = async (url, body = null) => {
     } else {
       message = data;
     }
-    return ({ error: true, message });
+    return { error: true, message };
   }
   return data;
 };

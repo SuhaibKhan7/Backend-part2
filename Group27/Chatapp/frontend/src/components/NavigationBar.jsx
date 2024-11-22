@@ -5,7 +5,6 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 function NavigationBar() {
-  
   const { handleLogout } = useContext(AuthContext);
   return (
     <>
@@ -23,7 +22,13 @@ function NavigationBar() {
               Signup
             </Nav.Link>
 
-            <Nav.Link as={Link} onClick={handleLogout}>
+            <Nav.Link
+              as={Link}
+              onClick={() => {
+                console.log("Logout Clicked");
+                handleLogout();
+              }}
+            >
               logout
             </Nav.Link>
           </Nav>

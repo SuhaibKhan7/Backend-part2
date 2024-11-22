@@ -25,7 +25,6 @@ export const AuthContextProvider = ({ children }) => {
         console.log(response);
         if (response.error) {
           setLoginError(response.message);
-
         } else {
           localStorage.setItem("user", JSON.stringify(response));
           setUser(response);
@@ -37,17 +36,16 @@ export const AuthContextProvider = ({ children }) => {
   );
 
   const [logoutError, setLogoutError] = useState(null);
-  const handleLogout = async () => {
+
+  const handleLogout = async (e) => {
+    console.log("logout fun");
     const response = await postRequest("auth/logout");
-    if (response.error) {
-      setLogoutError(response);
-    } else {
+    console.log("logout");
+    console.log(response);
       localStorage.removeItem("user");
       setUser({});
       navigate("/login");
     }
-  };
-
   return (
     <AuthContext.Provider
       value={{
