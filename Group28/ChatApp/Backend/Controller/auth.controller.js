@@ -71,6 +71,15 @@ export const login = async (req, res) => {
   });
 };
 
+
+export const auth0login = async (req, res) => {
+
+  generateJWT(req.userid, res);
+  res.status(201).json({
+    _id: req.userid,
+  })
+};
+
 export const logout = (req, res) => {
   res.cookie("jwt", " ", {
     maxAge: 0,

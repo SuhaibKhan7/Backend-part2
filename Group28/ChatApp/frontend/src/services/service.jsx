@@ -1,12 +1,13 @@
 const baseUrl = "http://localhost:3003/api/v1";
-const postRequest = async (url, body) => {
+const postRequest = async (url, body = null, token = null) => {
   console.log("This is post req fun");
   const response = await fetch(`${baseUrl}/${url}`, {
     method: "POST",
     headers: {
       "Content-Type": "Application/json",
+      Authorization: token ? `Bearer ${token}` : undefined,
     },
-    body: body,
+    body: body ? body : null,
     credentials: "include",
   });
   const data = await response.json();
@@ -25,4 +26,4 @@ const postRequest = async (url, body) => {
   }
   return data;
 };
-export default postRequest 
+export default postRequest;
